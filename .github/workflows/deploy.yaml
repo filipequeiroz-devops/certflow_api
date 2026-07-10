@@ -1,0 +1,40 @@
+name: Run tests and validate code
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - tests
+    paths:
+      - '**.py'
+      - 'requirements.txt'
+
+jobs:
+  test_and_validate:
+    name: Test and Validate Code
+    runs-on: ubuntu-latest
+
+    #Clona o repositório para a maquina virtual do GitHub Actions
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+    #Instala o Python e as dependências do projeto  
+      - name: Configura o Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      #instala as dependencias do projeto
+      - name: Instala dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt0
+          pip install pytest httpx pytest-cov
+        
+      #Executa os testes unitários
+      - name: Executa os testes unitários 
+        run: |
+          pytest tests/ -v --cov=.
