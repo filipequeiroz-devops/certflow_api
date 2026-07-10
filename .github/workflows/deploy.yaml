@@ -10,6 +10,8 @@ on:
       - '**.py'
       - 'requirements.txt'
 
+  workflow_dispatch:
+
 jobs:
   test_and_validate:
     name: Test and Validate Code
