@@ -5,7 +5,6 @@ from sqlalchemy         import create_engine
 from sqlalchemy.pool    import StaticPool
 from sqlalchemy.orm     import sessionmaker
 from database           import Base
-
 import pytest
 
 #Banco sql lite em memória para realização dos testes
