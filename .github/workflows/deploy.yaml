@@ -40,5 +40,7 @@ jobs:
         
       #Executa os testes unitários
       - name: Executa os testes unitários 
+        env:
+          PYTHONPATH: .
         run: |
           pytest tests/ -v --cov=.
