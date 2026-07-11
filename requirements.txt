@@ -6,3 +6,4 @@ python-jose
 python-dotenv
 requests
 pydantic
+email-validator
