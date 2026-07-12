@@ -1,4 +1,4 @@
-from main               import get_db, home, app
+from main               import get_db, home, register, app
 from fastapi.testclient import TestClient
 from pydantic           import ValidationError
 from sqlalchemy         import create_engine
@@ -16,7 +16,11 @@ engine = create_engine(
     poolclass=StaticPool,
 )
 
-TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+TestingSessionLocal = sessionmaker(
+    autocommit=False, 
+    autoflush=False, 
+    bind=engine
+)
 
 #==================
 #sessões de DB que serao utilizadas nos testes
@@ -54,3 +58,17 @@ def test_home(client):
     response = client.get("/")
     assert response.status_code == 200
     assert response.json() == {"status": "CertFlow API online"}
+ 
+def test_register_success(client):
+    """Testa o registro de um novo usuário com sucesso."""
+    payload = {
+        "nome"        : "João Silva",
+        "email"       : "joao.silva@example.com",
+        "senha"       : "senha123",    
+        "device_id"   : "device123",
+        "nome_maquina": "maquina123",
+        "sistema"     : "Windows"
+    }
+    response = client.post("/register", json=payload)
+    
+    assert response.status_code == 200
